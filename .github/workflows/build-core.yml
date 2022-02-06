@@ -45,9 +45,11 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
+      working-directory: /workdir
       run: composer install --no-progress
       
     - name: Build zip file
+      working-directory: /workdir
       run: composer build wp2static-core  
 
     - name: Upload result

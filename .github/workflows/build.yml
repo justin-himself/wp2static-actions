@@ -1,0 +1,39 @@
+name: Build WP2Static
+
+on:
+  push:
+    branches: 
+      - main
+    schedule:
+      - cron: 0 20 * * *
+  release:
+    types: [published]
+
+jobs:
+
+  build_wp2static_core:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Clone repository
+      run:  git clone https://github.com/leonstafford/wp2static.git .
+    
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --no-progress
+      
+    - name: Build zip file
+      run: composer build wp2static-core

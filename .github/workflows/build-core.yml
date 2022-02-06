@@ -1,4 +1,4 @@
-name: Build WP2Static-Core
+name: WP2Static-Core
 
 on:
   repository_dispatch:

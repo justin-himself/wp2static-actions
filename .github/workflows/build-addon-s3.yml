@@ -1,4 +1,4 @@
-name: Build WP2Static-Addon-S3
+name: Addon-S3
 
 on:
   repository_dispatch:

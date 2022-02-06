@@ -1,4 +1,4 @@
-name: Build WP2Static-Addon-Cloudflare-Workers
+name: Addon-Cloudflare-Workers
 
 on:
   repository_dispatch:

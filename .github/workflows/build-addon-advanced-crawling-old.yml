@@ -33,7 +33,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH .
     - name: Validate composer.json and composer.lock
       working-directory: /workdir
-      run: composer validate --strict
+      run: composer validate 
 
     - name: Cache Composer packages
       id: composer-cache

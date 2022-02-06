@@ -1,0 +1,60 @@
+name: Build WP2Static-Addon-S3
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  NAME: wp2static-addon-s3
+  REPO_URL: https://github.com/leonstafford/wp2static-addon-s3.git
+  REPO_BRANCH: master
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@main
+    
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH .
+
+    - name: Validate composer.json and composer.lock
+      working-directory: /workdir
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      working-directory: /workdir
+      run: composer install --no-progress
+      
+    - name: Build zip file
+      working-directory: /workdir
+      run: composer build $NAME
+
+    - name: Upload result
+      uses: actions/upload-artifact@v2
+      with:
+        name: $NAME
+        path: ~/Downloads/

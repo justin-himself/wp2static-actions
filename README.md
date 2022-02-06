@@ -1,5 +1,3 @@
-Cloud compile wp2static and plugins every day using github actions, so you don't have to.
-
 ### Download List
 
 

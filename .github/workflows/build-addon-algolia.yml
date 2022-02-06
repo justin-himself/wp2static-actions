@@ -61,9 +61,11 @@ jobs:
       run: |
          unzip $NAME.zip
          rm $NAME.zip
+         mv $NAME/* .
+         rm -r $NAME
 
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ env.NAME }}.zip
+        name: ${{ env.NAME }}
         path: /home/runner/Downloads/

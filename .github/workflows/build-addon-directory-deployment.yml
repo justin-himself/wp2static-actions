@@ -32,10 +32,6 @@ jobs:
       run: |
         git clone $REPO_URL -b $REPO_BRANCH .
 
-    - name: Update dependencies
-      working-directory: /workdir
-      run: composer update --no-progress
-
     - name: Validate composer.json and composer.lock
       working-directory: /workdir
       run: composer validate 
@@ -48,6 +44,10 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
+    - name: Update dependencies
+      working-directory: /workdir
+      run: composer update --no-progress
 
     - name: Install dependencies
       working-directory: /workdir

@@ -1,4 +1,4 @@
-name: Addon-Google-Cloud-Storage-Deployment
+name: Addon-GCS
 
 on:
   repository_dispatch:

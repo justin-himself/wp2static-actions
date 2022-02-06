@@ -27,33 +27,13 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         
-    - name: Clone source code
+    - name: Download the source code
       working-directory: /workdir
       run: |
-        git clone $REPO_URL -b $REPO_BRANCH .
-    - name: Validate composer.json and composer.lock
-      working-directory: /workdir
-      run: composer validate --strict
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-    - name: Update dependencies
-      working-directory: /workdir
-      run: composer update --no-progress
-
-    - name: Install dependencies
-      working-directory: /workdir
-      run: composer install --no-progress
-      
-    - name: Build zip file
-      working-directory: /workdir
-      run: composer build $NAME
+        git clone $REPO_URL -b $REPO_BRANCH git
+        zip -r $NAME.zip git
+        mkdir ~/Downloads/
+        mv $NAME.zip ~/Downloads/
 
     - name: Upload result
       uses: actions/upload-artifact@v2

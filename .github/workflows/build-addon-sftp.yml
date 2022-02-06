@@ -55,6 +55,12 @@ jobs:
       working-directory: /workdir
       run: composer build $NAME
 
+    - name: Prepare for uploading
+      working-directory: /home/runner/Downloads/
+      run: |
+         unzip $NAME.zip
+         rm $NAME.zip
+
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:

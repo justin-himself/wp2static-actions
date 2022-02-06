@@ -30,18 +30,11 @@ jobs:
     - name: Download the source code
       working-directory: /workdir
       run: |
-        git clone $REPO_URL -b $REPO_BRANCH git
-        zip -r $NAME.zip git
-        mkdir /home/runner/Downloads/
-        mv $NAME.zip /home/runner/Downloads/
+        git clone $REPO_URL -b $REPO_BRANCH .
 
-    # This is to prevent recursive decompression
-    - name: Create Placeholder
-      working-directory: /home/runner/Downloads/
-      run: touch .placeholder
 
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.NAME }}.zip
-        path: /home/runner/Downloads/
+        path: /workdir

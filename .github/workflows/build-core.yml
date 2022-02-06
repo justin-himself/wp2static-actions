@@ -1,4 +1,4 @@
-name: WP2Static-Core
+name: Core
 
 on:
   repository_dispatch:

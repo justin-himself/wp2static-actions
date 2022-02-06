@@ -2,7 +2,7 @@
 
 
 
-| Repo                                                         |                            State                             |                      **Download Link**                       |
+| Repo                                                         |                            State                             |                      **Link**                       |
 | :----------------------------------------------------------- | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | [leonstafford/wp2static](https://github.com/leonstafford/wp2static) | ![](https://github.com/justin-himself/wp2static-actions/actions/workflows/build-core.yml/badge.svg) | [Download](https://github.com/justin-himself/wp2static-actions/actions/workflows/build-core.yml) |
 | [leonstafford/wp2static-addon-s3](https://github.com/leonstafford/wp2static-addon-s3) | ![](https://github.com/justin-himself/wp2static-actions/actions/workflows/build-addon-s3.yml/badge.svg) | [Download](https://github.com/justin-himself/wp2static-actions/actions/workflows/build-addon-s3.yml) |

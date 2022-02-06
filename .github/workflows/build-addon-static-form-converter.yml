@@ -55,7 +55,7 @@ jobs:
       
     - name: Build zip file
       working-directory: /workdir
-      run: docker run --rm --volume $PWD:/app -v ~/:/root/ composer build $NAME
+      run: composer build $NAME
 
     - name: Upload result
       uses: actions/upload-artifact@v2

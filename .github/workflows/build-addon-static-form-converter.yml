@@ -31,9 +31,10 @@ jobs:
       working-directory: /workdir
       run: |
         git clone $REPO_URL -b $REPO_BRANCH .
+        
     - name: Validate composer.json and composer.lock
       working-directory: /workdir
-      run: composer validate 
+      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 validate 
 
     - name: Cache Composer packages
       id: composer-cache
@@ -43,17 +44,18 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+          
     - name: Update dependencies
       working-directory: /workdir
-      run: composer update --no-progress
+      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 update --no-progress
 
     - name: Install dependencies
       working-directory: /workdir
-      run: composer install --no-progress
+      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 install --no-progress
       
     - name: Build zip file
       working-directory: /workdir
-      run: composer build $NAME
+      run: docker run --rm --interactive --tty --volume $PWD:/app -v ~/:/root/ composer:1.10 build $NAME
 
     - name: Upload result
       uses: actions/upload-artifact@v2

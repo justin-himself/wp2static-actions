@@ -1,0 +1,62 @@
+name: Addon-Advanced-Detection
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  NAME: wp2static-addon-advanced-detection
+  REPO_URL: https://github.com/leonstafford/wp2static-addon-advanced-detection.git
+  REPO_BRANCH: master
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@main
+    
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH .
+    - name: Validate composer.json and composer.lock
+      working-directory: /workdir
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - name: Update dependencies
+      working-directory: /workdir
+      run: composer update --no-progress
+
+    - name: Install dependencies
+      working-directory: /workdir
+      run: composer install --no-progress
+      
+    - name: Build zip file
+      working-directory: /workdir
+      run: composer build $NAME
+
+    - name: Upload result
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.NAME }}
+        path: ~/Downloads/

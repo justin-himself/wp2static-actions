@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  NAME: wp2static-core
+  NAME: wp2static
   REPO_URL: https://github.com/leonstafford/wp2static.git
   REPO_BRANCH: develop
 

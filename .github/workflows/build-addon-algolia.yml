@@ -57,7 +57,7 @@ jobs:
 
 
     - name: Prepare for uploading
-      working-directory: ~/Downloads/
+      working-directory: /home/runner/Downloads/
       run: |
          unzip $NAME.zip
          rm $NAME.zip
@@ -66,4 +66,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.NAME }}.zip
-        path: ~/Downloads/
+        path: /home/runner/Downloads/

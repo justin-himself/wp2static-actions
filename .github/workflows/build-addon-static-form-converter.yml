@@ -34,7 +34,7 @@ jobs:
         
     - name: Validate composer.json and composer.lock
       working-directory: /workdir
-      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 validate 
+      run: docker run --rm --volume $PWD:/app composer:1.10 validate 
 
     - name: Cache Composer packages
       id: composer-cache
@@ -47,15 +47,15 @@ jobs:
           
     - name: Update dependencies
       working-directory: /workdir
-      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 update --no-progress
+      run: docker run --rm --volume $PWD:/app composer:1.10 update --no-progress
 
     - name: Install dependencies
       working-directory: /workdir
-      run: docker run --rm --interactive --tty --volume $PWD:/app composer:1.10 install --no-progress
+      run: docker run --rm --volume $PWD:/app composer:1.10 install --no-progress
       
     - name: Build zip file
       working-directory: /workdir
-      run: docker run --rm --interactive --tty --volume $PWD:/app -v ~/:/root/ composer:1.10 build $NAME
+      run: docker run --rm --volume $PWD:/app -v ~/:/root/ composer:1.10 build $NAME
 
     - name: Upload result
       uses: actions/upload-artifact@v2

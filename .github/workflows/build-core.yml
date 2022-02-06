@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 env:
+  NAME: wp2static-core
   REPO_URL: https://github.com/leonstafford/wp2static.git
   REPO_BRANCH: develop
 
@@ -50,10 +51,10 @@ jobs:
       
     - name: Build zip file
       working-directory: /workdir
-      run: composer build wp2static-core  
+      run: composer build $NAME
 
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:
-        name: wp2static-core
+        name: $NAME
         path: ~/Downloads/

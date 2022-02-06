@@ -45,6 +45,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
+    - name: Update dependencies
+      working-directory: /workdir
+      run: composer update --no-progress
+
     - name: Install dependencies
       working-directory: /workdir
       run: composer install --no-progress

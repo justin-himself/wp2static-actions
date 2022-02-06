@@ -32,13 +32,13 @@ jobs:
       run: |
         git clone $REPO_URL -b $REPO_BRANCH .
 
-    - name: Validate composer.json and composer.lock
-      working-directory: /workdir
-      run: composer validate 
-    
     - name: Update dependencies
       working-directory: /workdir
       run: composer update --no-progress
+
+    - name: Validate composer.json and composer.lock
+      working-directory: /workdir
+      run: composer validate 
 
     - name: Cache Composer packages
       id: composer-cache

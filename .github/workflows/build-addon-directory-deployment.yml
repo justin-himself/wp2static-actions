@@ -61,15 +61,15 @@ jobs:
       uses: P3TERX/ssh2actions@v1.0.0
 
     - name: Prepare for uploading
-      working-directory: /home/runner/Downloads/
+      working-directory: /workdir/release
       run: |
-         unzip $NAME.zip
-         rm $NAME.zip
-         mv $NAME/* .
-         rm -r $NAME
+         unzip wp2static-addon-copy.zip
+         rm wp2static-addon-copy.zip
+         mv wp2static-addon-copy/* .
+         rm -r wp2static-addon-copy
 
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.NAME }}
-        path: /home/runner/Downloads/
+        path: /workdir/release

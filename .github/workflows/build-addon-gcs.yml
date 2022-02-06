@@ -47,7 +47,7 @@ jobs:
 
     - name: Install dependencies
       working-directory: /workdir
-      run: composer install --no-progress
+      run: composer install --ignore-platform-reqs --no-progress
       
     - name: Build zip file
       working-directory: /workdir

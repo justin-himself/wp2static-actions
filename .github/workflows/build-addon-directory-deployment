@@ -1,4 +1,4 @@
-name: Addon-Cloudflare-Workers
+name: Addon-Directory-Deployment
 
 on:
   repository_dispatch:

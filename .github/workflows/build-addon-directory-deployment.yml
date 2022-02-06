@@ -32,6 +32,10 @@ jobs:
       run: |
         git clone $REPO_URL -b $REPO_BRANCH .
 
+    - name: Update dependencies
+      working-directory: /workdir
+      run: composer update --no-progress
+
     - name: Validate composer.json and composer.lock
       working-directory: /workdir
       run: composer validate 
@@ -45,10 +49,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Update dependencies
-      working-directory: /workdir
-      run: composer update --no-progress
-
     - name: Install dependencies
       working-directory: /workdir
       run: composer install --no-progress
@@ -56,6 +56,9 @@ jobs:
     - name: Build zip file
       working-directory: /workdir
       run: composer build $NAME
+
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
 
     - name: Prepare for uploading
       working-directory: /home/runner/Downloads/

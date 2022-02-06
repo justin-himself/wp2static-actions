@@ -55,8 +55,12 @@ jobs:
       
     - name: Build zip file
       working-directory: /workdir
-      run: composer build dehduehdeuhude$NAME
+      run: composer build $NAME
 
+    - name: Clear
+      working-directory: /workdir
+      run: rm -r ./*
+      
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:

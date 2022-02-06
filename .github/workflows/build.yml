@@ -42,4 +42,38 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: wp2static-core
-        path: ./root/Downloads/
+        path: /root/Downloads/
+
+  build_wp2static_addon-s3:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Clone repository
+      run:  git clone https://github.com/eonstafford/wp2static-addon-s3.git .
+    
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --no-progress
+      
+    - name: Build zip file
+      run: composer build wp2static-addon-s3
+
+    - name: Upload result
+      uses: actions/upload-artifact@v2
+      with:
+        name: wp2static-addon-s3
+        path: /root/Downloads/
+

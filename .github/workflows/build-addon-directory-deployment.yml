@@ -57,11 +57,6 @@ jobs:
       working-directory: /workdir
       run: composer build $NAME
 
-    # This is to prevent recursive decompression
-    - name: Create Placeholder
-      working-directory: /home/runner/Downloads/
-      run: touch .placeholder
-
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:

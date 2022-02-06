@@ -6,7 +6,7 @@ on:
     - cron: 0 1 1 * *
 
 jobs:
-  check:
+  update:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,10 +15,9 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
-        event-type: Source Code Update
-
+        event-type: Auto Rebuild
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
-        retain_days: 60
-        keep_minimum_runs: 22
+        retain_days: 0
+        keep_minimum_runs: 1
